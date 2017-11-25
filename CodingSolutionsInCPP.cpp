@@ -202,3 +202,180 @@ int longestConsecutive(const vector<int> &A) {
     }
     return retVal;
 }
+
+/*
+Justified Text
+Given an array of words and a length L, format the text such that each line has exactly L characters and is fully (left and right) justified.
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line.
+
+Pad extra spaces ‘ ‘ when necessary so that each line has exactly L characters.
+Extra spaces between words should be distributed as evenly as possible.
+If the number of spaces on a line do not divide evenly between words, the empty slots on the left will be assigned more spaces than the slots on the right.
+For the last line of text, it should be left justified and no extra space is inserted between words.
+
+Your program should return a list of strings, where each string represents a single line.
+*/
+
+vector<string> fullJustify(vector<string> &A, int B) {
+    vector<string> retVector;
+    vector<int> nums;
+    int j = 0, k = 0;
+    string currString = "";
+    int currNum = 0;
+    
+    for (int i = 0; i < A.size(); i++) {
+        int wordSize = int(A[i].size());
+        int testNum = int(currString.size()) + wordSize + currNum;
+        if(testNum <= B) {
+            currString += A[i];
+            ++currNum;
+        } else {
+            nums.push_back(currNum);
+            currString = A[i];
+            currNum = 1;
+        }
+        if (i == A.size() - 1) nums.push_back(currNum);
+    }
+    
+    for (int i = 0; i < nums.size(); i++) retVector.push_back("");
+    
+    int countCurrLetters = 0;
+    int tot_spaces_left = 0;
+    int extra_space_for_each = 0;
+    int extra_extra_space = 0;
+    
+    while (j < A.size()) {
+        
+        countCurrLetters = 0;
+        
+        for (int i = 0; i < nums[k]; i++) {
+            countCurrLetters += int(A[j+i].size());
+        }
+        
+        tot_spaces_left = (B - countCurrLetters);
+        
+        extra_extra_space = (nums[k] - 1) != 0 ? tot_spaces_left%(nums[k] - 1) : 0;
+        
+        if (k == nums.size() - 1) {
+            for (int i = 0; i < nums[k]; i++) {
+                retVector[k] += A[j];
+                if (tot_spaces_left > 0) {
+                    retVector[k] += " ";
+                    --tot_spaces_left;
+                }
+                j++;
+            }
+            while (tot_spaces_left > 0) {
+                retVector[k] += " ";
+                --tot_spaces_left;
+            }
+        } else {
+            for (int i = 0; i < nums[k]; i++) {
+                extra_space_for_each = (nums[k] == 1) ? tot_spaces_left : int((tot_spaces_left/(nums[k] - 1)));
+                retVector[k] += A[j];
+                j++;
+                if (extra_extra_space > 0) {
+                    retVector[k] += " ";
+                    --extra_extra_space;
+                }
+                if (retVector[k].size() == B) {
+                    break;
+                }
+                while(extra_space_for_each > 0) {
+                    retVector[k] += " ";
+                    --extra_space_for_each;
+                }
+            }
+        }
+        
+        k++;
+    }
+    
+    return retVector;
+}
+
+
+/*
+Checks to see if string is a palindrome. A very simple approach.
+*/
+
+bool isPalindromeSimple(string A) {
+    int i = 0;
+    int j = int(A.size()) - 1;
+    while (i <= j) {
+        if (A[i] != A[j])
+            return false;
+        i++;
+        j--;
+    }
+    return true;
+}
+
+/*
+Minimum Characters required to make a String Palindromic
+You are given a string. The only operation allowed is to insert characters in the beginning of the string. 
+How many minimum characters are needed to be inserted to make the string a palindrome string
+*/
+
+int minCharactersRequiredToMakePalindrome(string A) {
+    char first = A[0];
+    
+    int i = A.size() - 1;
+    int k = 0;
+    
+    while (i >= 0) {
+        if (A[i] == first) {
+            string toCheck = A.substr(0, i+1);
+            if (isPalindromeSimple(toCheck)) {
+                return A.size() - (i+1);
+            }
+        }
+        i--;
+    }
+    
+    return A.size() - 1;
+}
+
+/*
+Length of Last Word
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+If the last word does not exist, return 0.
+Note: A word is defined as a character sequence consists of non-space characters only.
+*/
+
+int lengthOfLastWord(const string &A) {
+    if (A.size() < 1) return 0;
+    int i = int(A.size()) - 1;
+    int retVal = 0;
+    
+    while(A[i] == ' ') {
+        --i;
+    }
+    
+    while (i >= 0 ) {
+        if (A[i] == ' ') return retVal;
+        ++retVal;
+        --i;
+    }
+    
+    return retVal;
+}
+
+/*
+Noble Integer
+Given an integer array, find if an integer p exists in the array such that the number of integers greater than p in the array equals to p
+If such an integer is found return 1 else return -1.
+*/
+
+int nobleInteger(vector<int> &A) {
+    sort(A.begin(), A.end());
+    
+    for (int i = 0; i < A.size(); i++) {
+        if (i == A.size() - 1 && A[i] == 0) return 1;
+        if (A[i] == (A.size() - i - 1) && A[i+1] > A[i]) {
+            return 1;
+        }
+    }
+
+    return -1;
+}
