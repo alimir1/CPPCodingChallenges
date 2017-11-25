@@ -28,3 +28,26 @@ and so on …
 Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
 
 [Solution](https://github.com/alimir1/CPPCodingChallenges/blob/master/CodingSolutionsInCPP.cpp#L182)
+
+## Justified Text
+Given an array of words and a length L, format the text such that each line has exactly L characters and is fully (left and right) justified.
+
+[Solution](https://github.com/alimir1/CPPCodingChallenges/blob/master/CodingSolutionsInCPP.cpp#L207)
+
+## Minimum Characters required to make a String Palindromic
+You are given a string. The only operation allowed is to insert characters in the beginning of the string. 
+How many minimum characters are needed to be inserted to make the string a palindrome string
+
+[Solution](https://github.com/alimir1/CPPCodingChallenges/blob/master/CodingSolutionsInCPP.cpp#L315)
+
+## Length of Last Word
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+If the last word does not exist, return 0.
+
+[Solution](https://github.com/alimir1/CPPCodingChallenges/blob/master/CodingSolutionsInCPP.cpp#L340)
+
+## Noble Integer
+Given an integer array, find if an integer p exists in the array such that the number of integers greater than p in the array equals to p.
+If such an integer is found return 1 else return -1.
+
+[Solution](https://github.com/alimir1/CPPCodingChallenges/blob/master/CodingSolutionsInCPP.cpp#L365)
